@@ -1,10 +1,1 @@
-{
-  "name":"SharkHabits V18.1",
-  "short_name":"SharkHabits",
-  "start_url":"./?v=1810",
-  "scope":"./",
-  "display":"standalone",
-  "background_color":"#080a0e",
-  "theme_color":"#080b0f",
-  "icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml"}]
-}
+{"name":"SharkHabits V18.2","short_name":"SharkHabits","start_url":"./?v=1821","scope":"./","display":"standalone","background_color":"#080a0e","theme_color":"#080b0f","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml"}]}
