@@ -1,7 +1,7 @@
 {
-  "name":"SharkHabits V18",
+  "name":"SharkHabits V18.1",
   "short_name":"SharkHabits",
-  "start_url":"./?v=1800",
+  "start_url":"./?v=1810",
   "scope":"./",
   "display":"standalone",
   "background_color":"#080a0e",
