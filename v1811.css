@@ -1,0 +1,18 @@
+/* SharkHabits V18.11 — Compact Today */
+#today .summary{padding:11px 14px;margin-bottom:12px;border-radius:16px}
+#today .summary strong{font-size:18px}#today .summary .bar{height:4px;margin-top:7px}
+#todayGroups{display:grid;gap:5px}
+.v1811GroupHead{width:100%;border:0;background:transparent;color:var(--text);display:flex;align-items:center;gap:7px;padding:8px 4px 5px;text-align:left}
+.v1811GroupHead span{font-size:14px;font-weight:800}.v1811GroupHead b{font-size:10px;color:var(--muted);background:#ffffff0d;border-radius:99px;padding:2px 6px}.v1811GroupHead i{margin-left:auto;color:var(--muted);font-style:normal}
+.v1811Group{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.022)}.v1811Group.collapsed{display:none}
+.v1811Task{min-height:61px;display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid var(--line);position:relative}
+.v1811Task:last-child{border-bottom:0}.v1811Task:active{background:#ffffff08}.v1811Task.isDone{opacity:.68}
+.v1811Mark{width:25px;height:25px;border-radius:8px;display:grid;place-items:center;background:#ffffff09;color:var(--muted);font-size:11px;font-weight:900}
+.v1811Task.habit .v1811Mark{color:#34c759}.v1811Task.cumulative .v1811Mark{color:#0a84ff}.v1811Task.metric .v1811Mark{color:#bf5af2}.v1811Task.deadline .v1811Mark{color:#ff9f0a}.v1811Task.oneoff .v1811Mark{color:#64d2ff}
+.v1811Text{min-width:0}.v1811Text h4{font-size:14px;line-height:1.15;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}.v1811Text small{display:block;color:var(--muted);font-size:10px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v1811Text i{display:block;height:2px;background:#ffffff0c;border-radius:3px;overflow:hidden;margin-top:5px}.v1811Text i span{display:block;height:100%;background:var(--blue)}
+.v1811Action{display:flex;align-items:center;justify-content:flex-end}.v1811Check{width:40px;height:40px;border-radius:50%;border:1.5px solid #5e6977;background:#ffffff05;color:#9ca6b3;font-size:21px;display:grid;place-items:center}.v1811Check.checked{background:#173d29;border-color:#34c759;color:#34c759}
+.v1811Measure{min-width:54px;height:34px;border:1px solid #bf5af255;border-radius:11px;background:#bf5af214;color:#d8a7ff;font-size:10px;font-weight:800;padding:0 8px}
+.v1811Stepper{height:36px;display:flex;align-items:center;gap:3px;background:#ffffff07;border-radius:12px;padding:2px}.v1811Stepper button{width:31px;height:31px;border:0;border-radius:10px;background:#ffffff08;font-size:17px}.v1811Stepper button:last-child{background:#0a84ff;color:white}.v1811Stepper strong{min-width:27px;text-align:center;font-size:11px}
+.v1811Empty{margin-top:8px;padding:24px 18px!important}
+@media(max-width:380px){.v1811Task{grid-template-columns:24px minmax(0,1fr) auto;gap:6px;padding-inline:6px}.v1811Mark{width:23px;height:23px}.v1811Text h4{font-size:13px}.v1811Stepper strong{display:none}.v1811Measure{min-width:48px;padding:0 6px}}
