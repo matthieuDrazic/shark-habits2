@@ -3,7 +3,6 @@
 'use strict';
 window.__v1811Active=true;
 let completedOpen=false;
-const oldTask=task, oldRenderToday=renderToday;
 
 function dayValue(g,date=selectedDate){
  return data.entries.filter(e=>e.goal===g.id&&e.date===date).reduce((s,e)=>s+(+e.value||0),0);
