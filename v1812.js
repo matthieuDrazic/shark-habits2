@@ -72,6 +72,20 @@ function polishForm(){
 }
 polishForm();document.getElementById('goalDialog')?.addEventListener('toggle',polishForm);
 
+/* Robust edit bridge: all Modify entry points reopen the editor with the live goal object. */
+function editGoalById(id){
+ const g=data.goals.find(x=>String(x.id)===String(id));if(!g)return;
+ const detail=document.getElementById('detailDialog');if(detail?.open)detail.close();
+ requestAnimationFrame(()=>{openGoal(g);polishForm()});
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('[data-report-edit],[data-goal-edit],#editGoal');
+ if(!b)return;
+ let id=b.dataset.reportEdit||b.dataset.goalEdit||document.getElementById('detailBody')?.dataset.goal;
+ if(!id)return;
+ e.preventDefault();e.stopImmediatePropagation();editGoalById(id);
+},true);
+
 /* Future dates are browse-only. Past dates deliberately keep normal add/edit controls for backfill. */
 document.addEventListener('click',e=>{
  const action=e.target.closest('[data-add],[data-minus],[data-v1811-toggle]');
@@ -88,5 +102,5 @@ isDone=function(g,dateStr=selectedDate){
  return dateStr>=end&&current(g,dateStr)<=+g.target;
 };
 renderToday();
-window.__v1812={version:'18.12',decorateToday,decorateRail,toast};
+window.__v1812={version:'18.12.1',decorateToday,decorateRail,toast,editGoalById};
 })();
