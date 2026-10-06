@@ -14,3 +14,8 @@
 .v1810Ghost{position:fixed;z-index:9999;width:74px;height:74px;transform:translate(-50%,-50%);pointer-events:none;display:grid;place-items:center;filter:drop-shadow(0 10px 15px #001824aa)}.v1810Ghost img{max-width:100%;max-height:100%;object-fit:contain}.v1810Ghost span{font-size:50px}
 #v1810Undo{position:absolute;z-index:60;left:50%;bottom:148px;transform:translateX(-50%);white-space:nowrap;background:#07141ce8;color:white;border:1px solid #ffffff2a;border-radius:99px;padding:9px 12px;font-size:11px;box-shadow:0 8px 24px #0006}#v1810Undo button{border:0;background:transparent;color:#7ce9f5;font-weight:800;margin-left:8px}
 @media(max-width:390px){#v1810Tools{align-items:flex-start;flex-direction:column}.v1810ToolBtns{width:100%}.v1810ToolBtns button{flex:1}.livingControls{gap:5px!important}}
+
+/* V18.10.1 editor action hardening */
+#v1810TopDone{position:absolute;z-index:70;top:calc(12px + env(safe-area-inset-top));right:14px;border:1px solid #a8f6ff80;border-radius:999px;background:#0aa6c7;color:#fff;font-weight:900;font-size:13px;padding:9px 15px;box-shadow:0 6px 20px #001b2a66}
+.v1810ToolBtns [data-v1810-validate]{background:#0aa6c7!important;border-color:#78eafa!important;color:#fff!important;font-weight:850}
+.v1810ToolBtns [data-v1810-remove]{background:#8d2e3440!important;border-color:#ff9d9d55!important;color:#ffc0c0!important;font-weight:750}
