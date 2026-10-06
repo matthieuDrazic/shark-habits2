@@ -89,6 +89,7 @@ const ocean=document.getElementById('ocean');
 if(ocean){
   new MutationObserver(annotateDecor).observe(ocean,{childList:true,subtree:true});
   ocean.addEventListener('pointerdown',e=>{
+    if(window.__v1810Active)return;
     const el=e.target.closest('[data-move-decor]'); if(!el)return;
     const scene=document.getElementById('livingScene'); if(!scene)return;
     const p=data.placed.find(x=>String(x.id)===String(el.dataset.moveDecor)); if(!p)return;
@@ -107,6 +108,7 @@ if(ocean){
   };
   ocean.addEventListener('pointerup',finish); ocean.addEventListener('pointercancel',finish);
   ocean.addEventListener('click',e=>{
+    if(window.__v1810Active)return;
     if(moved){e.preventDefault();e.stopPropagation();moved=false;return}
     const el=e.target.closest('[data-move-decor]'); if(!el)return;
     const drawer=document.getElementById('livingDrawer');
