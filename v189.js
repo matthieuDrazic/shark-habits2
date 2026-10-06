@@ -1,6 +1,7 @@
 /* SharkHabits V18.9 — infinite dates + clear Ocean buy/edit modes */
 (()=>{
 'use strict';
+window.__v189DateRailActive=true;
 /* Continuous date rail: 121 days, centered on selected date, extended as needed. */
 const week=document.getElementById('week'), nav=document.querySelector('.dateNavigator'), range=document.getElementById('weekRange');
 let railStart=null,railEnd=null,railBusy=false;
