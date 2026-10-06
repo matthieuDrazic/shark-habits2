@@ -31,9 +31,11 @@ function applyOneOff(){
 }
 installOneOff();
 const goalDialog=document.getElementById('goalDialog');
+/* V18.9.1: do not observe form attributes here. applyOneOff() changes classes/visibility,
+   so an attribute MutationObserver can recursively retrigger itself and freeze iOS Safari. */
 if(goalDialog){
-  const mo=new MutationObserver(()=>{installOneOff();applyOneOff()});
-  mo.observe(goalDialog,{attributes:true,subtree:true,childList:true});
+  installOneOff();
+  goalDialog.addEventListener('toggle',()=>{installOneOff();setTimeout(applyOneOff,0)});
 }
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-type="oneoff"]');
