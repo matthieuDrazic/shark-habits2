@@ -28,7 +28,7 @@ function openEditor(id){
 }
 document.addEventListener('click',e=>{
  const b=e.target.closest('[data-report-edit],[data-goal-edit],#editGoal');
- if(!b)return;
+ if(!b||e.defaultPrevented)return;
  const id=b.dataset.reportEdit||b.dataset.goalEdit||document.getElementById('detailBody')?.dataset.goal;
  if(!id)return;
  e.preventDefault();e.stopImmediatePropagation();
@@ -36,5 +36,5 @@ document.addEventListener('click',e=>{
 },true);
 /* Expose one editor implementation to older runtime callers too. */
 window.openGoalForEdit=openEditor;
-window.__v1813={version:'18.13',openEditor,fill};
+window.__v1813={version:'18.14',openEditor,fill};
 })();
