@@ -1,11 +1,8 @@
-/* SharkHabits V18.8 */
+/* SharkHabits V18.11 — one-off goal editor */
 .v183Types{grid-template-columns:repeat(5,minmax(0,1fr))!important}
 .v183Type{min-width:0!important;padding:12px 5px!important}
 .v183Type strong{font-size:12px!important}.v183Type small{font-size:9px!important}
 .v188OneOffForm .two,.v188OneOffForm [data-v="repeat"],.v188OneOffForm [data-v="start"],.v188OneOffForm [data-v="rule"],.v188OneOffForm [data-v="planning"],.v188OneOffForm [data-v="days"],.v188OneOffForm [data-v="times"]{display:none!important}
 .v188OneOffForm [data-v="deadline"]{display:grid!important}
 .trackingCard.oneoff{border-left-color:#64d2ff}
-#week{touch-action:pan-y;overscroll-behavior-x:contain}
-.livingDecor,.livingOldDecor{touch-action:none;cursor:grab}
-.livingDecor.dragging,.livingOldDecor.dragging{cursor:grabbing;z-index:35!important;filter:drop-shadow(0 10px 18px #001d2caa) brightness(1.12)}
 @media(max-width:390px){.v183Type strong{font-size:11px!important}.v183Type small{display:none}}
