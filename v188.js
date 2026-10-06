@@ -49,6 +49,11 @@ form?.addEventListener('input',()=>setTimeout(applyOneOff,0));
 form?.addEventListener('change',()=>setTimeout(applyOneOff,0));
 
 try{
+  const oldBounds=bounds;
+  bounds=function(g,dateStr=selectedDate){
+    if(g?.type===ONE&&g.deadline)return [g.deadline,g.deadline];
+    return oldBounds(g,dateStr);
+  };
   const oldScheduled=scheduledOn;
   scheduledOn=function(g,dateStr){
     if(g?.type===ONE)return Boolean(g.deadline)&&g.deadline===dateStr;
