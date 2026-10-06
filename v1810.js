@@ -9,7 +9,7 @@ const def=id=>defs().find(d=>d.id===id);
 const placedCount=id=>data.placed.filter(p=>p.decor===id).length;
 const available=id=>Math.max(0,(data.inventory?.[id]||0)-placedCount(id));
 const vis=d=>d.img?'<img src="'+d.img+'" alt="'+d.name+'">':'<span>'+(d.emoji||'🪸')+'</span>';
-let mode='view',selected=null,drag=null,ghost=null,undo=null,suppressInventoryClick=false;
+let mode='view',selected=null,drag=null,ghost=null,undo=null,suppressInventoryClick=false,editSnapshot=null;
 
 function repairInventory(){
  data.inventory||={}; data.placed||=[];
@@ -36,7 +36,12 @@ function buy(){
  dr.innerHTML='<div class="drawerHead"><div><strong>Boutique décorations</strong><small>Un achat ajoute l’objet à ton inventaire. Il ne sera pas placé automatiquement.</small></div><button data-close-drawer>✕</button></div><div class="livingShop">'+defs().map(d=>'<button data-v1810-buy="'+d.id+'">'+vis(d)+'<b>'+d.name+'</b><small>🦷 '+d.cost+' · Possédé '+(data.inventory[d.id]||0)+'</small></button>').join('')+'</div>';
 }
 function editor(){
- mode='edit';selected=null;document.getElementById('ocean')?.classList.add('v1810Editing');closeDrawer();controls();renderTray();annotate();
+ mode='edit';selected=null;editSnapshot=JSON.parse(JSON.stringify(data.placed));document.getElementById('ocean')?.classList.add('v1810Editing');closeDrawer();controls();renderTray();annotate();renderTopDone();
+}
+function renderTopDone(){
+ let b=document.getElementById('v1810TopDone');
+ if(mode!=='edit'){b?.remove();return}
+ if(!b){b=document.createElement('button');b.id='v1810TopDone';b.textContent='OK';document.getElementById('ocean')?.appendChild(b)}
 }
 function renderTray(){
  let tray=document.getElementById('v1810Tray');if(!tray){tray=document.createElement('div');tray.id='v1810Tray';document.getElementById('ocean')?.appendChild(tray)}
@@ -49,7 +54,7 @@ function renderTools(){
  const p=data.placed.find(x=>String(x.id)===String(selected)),d=p&&def(p.decor);
  if(!p||!d){bar.classList.remove('show');bar.innerHTML='';return}
  const size=p.size||'m';
- bar.innerHTML='<div><b>'+d.name+'</b><small>Fais glisser l’objet pour le déplacer</small></div><div class="v1810ToolBtns"><button data-v1810-size="s" class="'+(size==='s'?'active':'')+'">Petit</button><button data-v1810-size="m" class="'+(size==='m'?'active':'')+'">Moyen</button><button data-v1810-size="l" class="'+(size==='l'?'active':'')+'">Grand</button><button data-v1810-remove>Retirer</button></div>';
+ bar.innerHTML='<div><b>'+d.name+'</b><small>Déplace ou redimensionne puis valide</small></div><div class="v1810ToolBtns"><button data-v1810-size="s" class="'+(size==='s'?'active':'')+'">Petit</button><button data-v1810-size="m" class="'+(size==='m'?'active':'')+'">Moyen</button><button data-v1810-size="l" class="'+(size==='l'?'active':'')+'">Grand</button><button type="button" data-v1810-remove>Retirer</button><button type="button" data-v1810-validate>✓ Valider</button></div>';
  bar.classList.add('show');annotate();
 }
 function place(id,x=50,y=50){
@@ -60,15 +65,17 @@ function place(id,x=50,y=50){
 }
 function removeSelected(){
  const i=data.placed.findIndex(x=>String(x.id)===String(selected));if(i<0)return;
- undo={p:data.placed[i],until:Date.now()+5000};data.placed.splice(i,1);selected=null;save();render();
- setTimeout(()=>{mode='edit';document.getElementById('ocean')?.classList.add('v1810Editing');controls();renderTray();showUndo()},0);
+ const removed=JSON.parse(JSON.stringify(data.placed[i]));undo={p:removed,until:Date.now()+5000};data.placed.splice(i,1);selected=null;save();
+ const node=document.querySelector('[data-v1810-placed="'+removed.id+'"]');node?.remove();
+ renderTray();annotate();showUndo();
 }
 function showUndo(){
  let n=document.getElementById('v1810Undo');if(!n){n=document.createElement('div');n.id='v1810Undo';document.getElementById('ocean')?.appendChild(n)}
  if(!undo||Date.now()>undo.until){n.remove();undo=null;return}
  n.innerHTML='Décoration retirée <button data-v1810-undo>Annuler</button>';setTimeout(()=>{if(Date.now()>undo?.until){n?.remove();undo=null}},5100);
 }
-function finish(){mode='view';selected=null;document.getElementById('ocean')?.classList.remove('v1810Editing');document.getElementById('v1810Tray')?.remove();document.getElementById('v1810Tools')?.remove();document.getElementById('v1810Undo')?.remove();controls();annotate()}
+function validateSelected(){if(!selected)return;save();selected=null;renderTools();annotate()}
+function finish(){save();mode='view';selected=null;editSnapshot=null;document.getElementById('ocean')?.classList.remove('v1810Editing');document.getElementById('v1810Tray')?.remove();document.getElementById('v1810Tools')?.remove();document.getElementById('v1810Undo')?.remove();document.getElementById('v1810TopDone')?.remove();controls();annotate()}
 
 function sceneXY(e,scene){const r=scene.getBoundingClientRect();return{x:Math.max(5,Math.min(95,(e.clientX-r.left)/r.width*100)),y:Math.max(5,Math.min(91,(e.clientY-r.top)/r.height*100))}}
 function startPlaced(e,el){
@@ -95,19 +102,20 @@ document.addEventListener('click',e=>{
  if(e.target.closest('[data-page="ocean"]'))setTimeout(()=>{mode='view';controls();annotate()},30);
  if(e.target.closest('#v1810Buy')){e.preventDefault();buy();return}
  if(e.target.closest('#v1810Edit')){e.preventDefault();editor();return}
- if(e.target.closest('#v1810Done')){e.preventDefault();finish();return}
+ if(e.target.closest('#v1810Done')||e.target.closest('#v1810TopDone')){e.preventDefault();e.stopImmediatePropagation();finish();return}
  const b=e.target.closest('[data-v1810-buy]');if(b){e.preventDefault();const d=def(b.dataset.v1810Buy);if(!d)return;if(data.teeth<d.cost)return alert('Pas assez de dents.');data.teeth-=d.cost;data.inventory[d.id]=(data.inventory[d.id]||0)+1;save();render();setTimeout(buy,0);return}
  const inv=e.target.closest('[data-v1810-inv]');if(inv&&mode==='edit'&&!drag){e.preventDefault();if(suppressInventoryClick){suppressInventoryClick=false;return}place(inv.dataset.v1810Inv);return}
  const size=e.target.closest('[data-v1810-size]');if(size){const p=data.placed.find(x=>String(x.id)===String(selected));if(p){p.size=size.dataset.v1810Size;save();annotate();renderTools()}return}
- if(e.target.closest('[data-v1810-remove]')){removeSelected();return}
- if(e.target.closest('[data-v1810-undo]')&&undo){data.placed.push(undo.p);selected=undo.p.id;undo=null;save();render();setTimeout(editor,0)}
+ if(e.target.closest('[data-v1810-remove]')){e.preventDefault();e.stopImmediatePropagation();removeSelected();return}
+ if(e.target.closest('[data-v1810-validate]')){e.preventDefault();e.stopImmediatePropagation();validateSelected();return}
+ if(e.target.closest('[data-v1810-undo]')&&undo){e.preventDefault();e.stopImmediatePropagation();data.placed.push(undo.p);selected=undo.p.id;undo=null;save();render();setTimeout(()=>{mode='edit';document.getElementById('ocean')?.classList.add('v1810Editing');controls();renderTray();renderTopDone();annotate()},0)}
 },true);
 const ocean=document.getElementById('ocean');
 if(ocean){
  ocean.addEventListener('pointerdown',e=>{const p=e.target.closest('[data-v1810-placed]');if(p)return startPlaced(e,p);const i=e.target.closest('[data-v1810-inv]');if(i)return startInventory(e,i)},true);
  ocean.addEventListener('pointermove',move,true);ocean.addEventListener('pointerup',end,true);ocean.addEventListener('pointercancel',end,true);
- new MutationObserver(()=>{annotate();controls();if(mode==='edit'){ocean.classList.add('v1810Editing');if(!document.getElementById('v1810Tray'))renderTray()}}).observe(ocean,{childList:true,subtree:true});
+ new MutationObserver(()=>{annotate();controls();if(mode==='edit'){ocean.classList.add('v1810Editing');if(!document.getElementById('v1810Tray'))renderTray();renderTopDone()}}).observe(ocean,{childList:true,subtree:true});
 }
 repairInventory();setTimeout(()=>{controls();annotate()},50);
-window.__v1810={version:'18.10',editor,buy,finish,available};
+window.__v1810={version:'18.10.1',editor,buy,finish,available,removeSelected,validateSelected};
 })();
