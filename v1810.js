@@ -57,10 +57,11 @@ function renderTools(){
  bar.innerHTML='<div><b>'+d.name+'</b><small>Déplace ou redimensionne puis valide</small></div><div class="v1810ToolBtns"><button data-v1810-size="s" class="'+(size==='s'?'active':'')+'">Petit</button><button data-v1810-size="m" class="'+(size==='m'?'active':'')+'">Moyen</button><button data-v1810-size="l" class="'+(size==='l'?'active':'')+'">Grand</button><button type="button" data-v1810-remove>Retirer</button><button type="button" data-v1810-validate>✓ Valider</button></div>';
  bar.classList.add('show');annotate();
 }
-function place(id,x=50,y=50){
+function place(id,x=50,y=42){
  if(available(id)<1)return;const d=def(id);if(!d)return;
- const zone=d.zone||'floor';if(y===50)y=zone==='surface'?16:zone==='mid'?45:72;
- const p={id:uid(),decor:id,x:Math.max(6,Math.min(94,x)),y:Math.max(6,Math.min(90,y)),size:'m'};
+ /* New inventory items deliberately spawn in the safe center of the scene,
+    away from the bottom inventory/shop touch targets. */
+ const p={id:uid(),decor:id,x:Math.max(18,Math.min(82,x)),y:Math.max(20,Math.min(68,y)),size:'m'};
  data.placed.push(p);selected=p.id;save();render();setTimeout(()=>{mode='edit';document.getElementById('ocean')?.classList.add('v1810Editing');controls();renderTray();annotate()},0);
 }
 function removeSelected(){
@@ -116,6 +117,19 @@ if(ocean){
  ocean.addEventListener('pointermove',move,true);ocean.addEventListener('pointerup',end,true);ocean.addEventListener('pointercancel',end,true);
  new MutationObserver(()=>{annotate();controls();if(mode==='edit'){ocean.classList.add('v1810Editing');if(!document.getElementById('v1810Tray'))renderTray();renderTopDone()}}).observe(ocean,{childList:true,subtree:true});
 }
-repairInventory();setTimeout(()=>{controls();annotate()},50);
-window.__v1810={version:'18.10.1',editor,buy,finish,available,removeSelected,validateSelected};
+function rescueBottomDecorOnce(){
+ const KEY='sharkhabits-v18103-decor-rescue';
+ if(localStorage.getItem(KEY))return;
+ const candidates=data.placed.filter(p=>(p.y??0)>62);
+ candidates.forEach((p,i)=>{
+   /* One-time migration for this release: fan previously trapped bottom
+      decorations into a safe central band so they can be selected again. */
+   p.x=30+(i%3)*20;
+   p.y=34+(Math.floor(i/3)%3)*12;
+ });
+ localStorage.setItem(KEY,'1');
+ if(candidates.length)save();
+}
+repairInventory();rescueBottomDecorOnce();setTimeout(()=>{controls();annotate()},50);
+window.__v1810={version:'18.10.2',editor,buy,finish,available,removeSelected,validateSelected};
 })();
