@@ -22,37 +22,7 @@ if(week){week.classList.add('v189DateRail');buildRail();week.addEventListener('s
 const oldRenderToday=window.renderToday;
 if(typeof oldRenderToday==='function')window.renderToday=function(){const left=week?.scrollLeft||0;oldRenderToday();if(week){buildRail(selectedDate);if(left&&!week.querySelector('[data-date="'+selectedDate+'"]'))week.scrollLeft=left}};
 
-/* Ocean: purchasing and aquarium editing are deliberately separate. */
-let oceanMode='view';
-const EX=()=>window.SHARKHABITS_LIVING_DECORS||[];
-const bad=new Set(['clownfish','bluefish','school','turtle','babyturtle']);
-const allDecor=()=>[...DECORS.filter(d=>!bad.has(d.id)),...EX()];
-const def=id=>allDecor().find(d=>d.id===id);
-const visual=d=>d.img?'<img src="'+d.img+'" alt="'+d.name+'">':'<span>'+(d.emoji||'🪸')+'</span>';
-function inventoryCount(id){return data.inventory?.[id]||0}
-function refreshControls(){
- const c=document.querySelector('.livingControls');if(!c)return;
- c.innerHTML='<button id="oceanBuy">🛍 Acheter</button><button id="oceanEdit">✦ Modifier l’aquarium</button><button id="livingSharks">🦈 Requins</button>';
-}
-function buyDrawer(){
- oceanMode='buy';const dr=document.getElementById('livingDrawer');if(!dr)return;dr.classList.add('open');
- dr.innerHTML='<div class="drawerHead"><div><strong>Boutique</strong><small>Les achats vont dans ton inventaire.</small></div><button data-close-drawer>✕</button></div><div class="livingShop">'+allDecor().map(d=>'<button data-v189-buy="'+d.id+'">'+visual(d)+'<b>'+d.name+'</b><small>🦷 '+d.cost+' · Possédé '+inventoryCount(d.id)+'</small></button>').join('')+'</div>';
-}
-function editDrawer(){
- oceanMode='edit';const dr=document.getElementById('livingDrawer');if(!dr)return;dr.classList.add('open');
- const inv=allDecor().filter(d=>inventoryCount(d.id)>0);
- dr.innerHTML='<div class="drawerHead"><div><strong>Modifier l’aquarium</strong><small>Place puis déplace les objets directement dans l’océan.</small></div><button data-close-drawer>✕</button></div><div class="livingShop">'+(inv.map(d=>'<button data-v189-place="'+d.id+'">'+visual(d)+'<b>'+d.name+'</b><small>'+inventoryCount(d.id)+' disponible'+(inventoryCount(d.id)>1?'s':'')+' · Placer</small></button>').join('')||'<p class="drawerHint">Ton inventaire est vide. Passe par Acheter pour obtenir des décorations.</p>')+'</div><small class="drawerHint">Touchez un objet placé pour le retirer. Faites-le glisser pour le déplacer.</small>';
-}
-function place(id){const d=def(id);if(!d||inventoryCount(id)<1)return;data.inventory[id]--;const z=d.zone||'floor',y=z==='surface'?12:z==='mid'?45:72;data.placed.push({id:uid(),decor:id,x:20+Math.random()*60,y});save();render();setTimeout(editDrawer,0)}
-document.addEventListener('click',e=>{
- if(e.target.closest('[data-page="ocean"]'))setTimeout(refreshControls,20);
- if(e.target.closest('#oceanBuy')){e.preventDefault();e.stopImmediatePropagation();buyDrawer();return}
- if(e.target.closest('#oceanEdit')){e.preventDefault();e.stopImmediatePropagation();editDrawer();return}
- const buy=e.target.closest('[data-v189-buy]');if(buy){e.preventDefault();e.stopImmediatePropagation();const d=def(buy.dataset.v189Buy);if(!d)return;if(data.teeth<d.cost)return alert('Pas assez de dents.');data.teeth-=d.cost;data.inventory[d.id]=(data.inventory[d.id]||0)+1;save();render();setTimeout(buyDrawer,0);return}
- const pl=e.target.closest('[data-v189-place]');if(pl){e.preventDefault();e.stopImmediatePropagation();place(pl.dataset.v189Place);return}
- const obj=e.target.closest('[data-move-decor]');if(obj&&oceanMode==='edit'&&!obj.classList.contains('dragging')){const p=data.placed.find(x=>String(x.id)===String(obj.dataset.moveDecor));if(p&&confirm('Remettre cette décoration dans l’inventaire ?')){data.placed=data.placed.filter(x=>x!==p);data.inventory[p.decor]=(data.inventory[p.decor]||0)+1;save();render();setTimeout(editDrawer,0)}}
-},true);
-const obs=new MutationObserver(()=>refreshControls());const ocean=document.getElementById('ocean');if(ocean)obs.observe(ocean,{childList:true});
-setTimeout(refreshControls,30);
-window.__v189={version:'18.9',buildRail,buyDrawer,editDrawer};
+
+/* Ocean editing moved to V18.10. */
+window.__v189={version:'18.9',buildRail};
 })();
