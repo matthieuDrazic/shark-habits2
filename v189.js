@@ -6,7 +6,7 @@ window.__v189DateRailActive=true;
 const week=document.getElementById('week'), nav=document.querySelector('.dateNavigator'), range=document.getElementById('weekRange');
 let railStart=null,railEnd=null,railBusy=false;
 const D=86400000, dateObj=s=>new Date(s+'T12:00');
-function dayHTML(d){const id=iso(d),done=data.goals.some(g=>data.entries.some(e=>e.goal===g.id&&e.date===id));return '<button class="day '+(id===selectedDate?'active ':'')+(done?'done':'')+'" data-date="'+id+'"><span>'+d.toLocaleDateString('fr-FR',{weekday:'short'}).replace('.','').toUpperCase()+'</span><b>'+d.getDate()+'</b><small>'+d.toLocaleDateString('fr-FR',{month:'short'}).replace('.','')+'</small></button>'}
+function dayHTML(d){const id=iso(d),done=data.goals.some(g=>data.entries.some(e=>e.goal===g.id&&e.date===id)),isToday=id===today();return '<button class="day '+(id===selectedDate?'active ':'')+(done?'done ':'')+(isToday?'v189Today ':'')+'" data-date="'+id+'"><span>'+d.toLocaleDateString('fr-FR',{weekday:'short'}).replace('.','').toUpperCase()+'</span><b>'+d.getDate()+'</b><small>'+d.toLocaleDateString('fr-FR',{month:'short'}).replace('.','')+'</small>'+(isToday?'<i class="v189TodayDot" aria-hidden="true"></i>':'')+'</button>'}
 function buildRail(center=selectedDate){
  if(!week)return; const c=dateObj(center); railStart=new Date(c.getTime()-60*D);railEnd=new Date(c.getTime()+60*D);
  week.innerHTML=Array.from({length:121},(_,i)=>dayHTML(new Date(railStart.getTime()+i*D))).join('');
