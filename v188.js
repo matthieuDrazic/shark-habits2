@@ -72,7 +72,7 @@ try{
 if(week){
   let x0=null,y0=null,t0=0;
   week.style.touchAction='pan-y';
-  week.addEventListener('pointerdown',e=>{x0=e.clientX;y0=e.clientY;t0=Date.now()});
+  week.addEventListener('pointerdown',e=>{if(window.__v189DateRailActive){x0=null;return}x0=e.clientX;y0=e.clientY;t0=Date.now()});
   week.addEventListener('pointerup',e=>{
     if(x0==null)return;
     const dx=e.clientX-x0,dy=e.clientY-y0,dt=Date.now()-t0; x0=y0=null;
