@@ -1,0 +1,13 @@
+/* SharkHabits V18.9 */
+.dateNavigator,.weekRange{display:none!important}
+#week.v189DateRail{display:flex!important;gap:8px;overflow-x:auto!important;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding:7px max(16px,calc(50vw - 31px)) 12px!important;margin:0 -16px 8px!important;touch-action:pan-x!important;scrollbar-width:none}
+#week.v189DateRail::-webkit-scrollbar{display:none}
+#week.v189DateRail .day{flex:0 0 54px;scroll-snap-align:center;border-radius:17px}
+#week.v189DateRail .day small{display:block;font-size:9px;text-transform:uppercase;opacity:.58;margin-top:2px}
+#week.v189DateRail .day.active{transform:scale(1.06)}
+.livingControls{grid-template-columns:1fr 1fr 1fr!important}
+.livingControls button{font-size:11px;padding:12px 6px!important}
+.drawerHead>div{display:grid;gap:3px}.drawerHead>div small{color:#8aaebb;font-size:10px}
+#ocean .livingDrawer.open~*{pointer-events:auto}
+#ocean .livingDecor,#ocean .livingOldDecor{touch-action:none}
+@media(max-width:380px){.livingControls{gap:5px!important}.livingControls button{font-size:10px!important}}
