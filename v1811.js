@@ -43,6 +43,7 @@ function group(title,items,kind,collapsible=false){
 }
 renderToday=function(){
  renderWeek();
+ window.__v189?.buildRail?.(selectedDate);
  const gs=data.goals.filter(g=>!g.archived&&scheduledOn(g,selectedDate)),todo=[],done=[],miss=[];
  gs.forEach(g=>{if(completed(g))done.push(g);else if(selectedDate<today())miss.push(g);else todo.push(g)});
  document.getElementById('todayGroups').innerHTML=group('À faire',todo,'todo')+group('Manqué',miss,'missed')+group('Terminés',done,'done',true)||
