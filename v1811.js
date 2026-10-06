@@ -25,7 +25,8 @@ function compactTask(g,kind){
  const s=strideStatus(g),p=pct(g),m=typeMeta(g),v=s.v,done=completed(g);
  let action='';
  if(g.type==='oneoff'||g.type==='habit'){
-   action='<button class="v1811Check '+(done?'checked':'')+'" data-v1811-toggle="'+g.id+'" aria-label="'+(done?'Annuler la validation':'Valider')+'">'+(done?'✓':'○')+'</button>';
+   const future=selectedDate>today();
+   action='<button class="v1811Check '+(done?'checked':'')+'" data-v1811-toggle="'+g.id+'" aria-label="'+(done?'Annuler la validation':'Valider')+'" '+(future?'disabled title="Disponible le jour prévu"':'')+'>'+(done?'✓':'○')+'</button>';
  }else if(g.type==='metric'){
    action='<button class="v1811Measure" data-add="'+g.id+'">'+(data.entries.some(e=>e.goal===g.id&&e.date===selectedDate)?'Modifier':'Saisir')+'</button>';
  }else{
@@ -54,7 +55,7 @@ function rewardKey(g,date){
  return g.id+':'+(g.repeat==='day'?date:g.repeat==='week'?a:g.repeat==='month'?a:(g.deadline||a));
 }
 function toggleBinary(g){
- if(!g||(g.type!=='oneoff'&&g.type!=='habit'))return;
+ if(!g||(g.type!=='oneoff'&&g.type!=='habit')||selectedDate>today())return;
  const rows=data.entries.filter(e=>e.goal===g.id&&e.date===selectedDate);
  const was=completed(g),key=rewardKey(g,selectedDate);
  if(was){
