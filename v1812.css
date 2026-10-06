@@ -1,0 +1,34 @@
+/* SharkHabits V18.12 — visual polish */
+:root{--sh-glow:#62ddf3;--sh-success:#45d6a4;--sh-warn:#ffb340;--sh-danger:#ff6b6b}
+body{letter-spacing:-.006em}
+header h1{letter-spacing:-.055em!important}
+#today .summary{background:linear-gradient(145deg,rgba(13,48,66,.78),rgba(7,29,42,.52))!important;border:1px solid rgba(108,213,235,.12)!important;box-shadow:0 10px 28px rgba(0,0,0,.12)}
+#v1812DateState{display:inline-flex;margin-top:7px;padding:3px 7px;border-radius:99px;font-size:9px;font-weight:750;letter-spacing:.02em;background:#ffffff09;color:var(--muted)}
+#v1812DateState.past{color:#8bdff0;background:#1b91ae18}#v1812DateState.future{color:#a8b3bd}
+.v1811Group{border-color:rgba(122,208,226,.11)!important;background:linear-gradient(145deg,rgba(10,39,54,.52),rgba(6,26,38,.35))!important;box-shadow:0 7px 22px rgba(0,0,0,.08)}
+.v1811Task{transition:background .18s,opacity .18s,transform .12s}.v1811Task:active{transform:scale(.992)}
+.v1811Mark{background:linear-gradient(145deg,#ffffff0d,#ffffff05)!important;border:1px solid #ffffff0a}
+.v1811Text i{height:3px!important}.v1811Text i span{background:linear-gradient(90deg,#159bd0,#55d8e9)!important}
+.v1811Task.v1812Maximum .v1811Text i span{background:linear-gradient(90deg,#45d6a4,#5ed8e7)!important}
+.v1811Task.v1812Maximum .v1811Mark{color:#45d6a4!important}
+.v1811Check.checked{animation:v1812Check .32s ease}
+@keyframes v1812Check{50%{transform:scale(1.14);box-shadow:0 0 0 7px rgba(69,214,164,.08)}}
+.v189DateRail{scroll-snap-type:x proximity}
+.v189DateRail .day{scroll-snap-align:center;transition:.2s ease;border-color:transparent!important}
+.v189DateRail .day.active{background:radial-gradient(circle at 50% 38%,rgba(91,222,244,.22),rgba(18,123,163,.12))!important;border-color:#55d8ee!important;box-shadow:0 0 18px rgba(67,205,232,.14)}
+.v189DateRail .day:after{content:"";position:absolute;left:50%;bottom:-2px;width:4px;height:4px;border-radius:50%;transform:translateX(-50%);background:transparent}
+.v189DateRail .day.v1812Success:after{background:var(--sh-success)}.v189DateRail .day.v1812Partial:after{background:#48c7e7}.v189DateRail .day.v1812Missed:after{background:#ff6b6b99}
+.v189TodayDot{bottom:-9px!important;width:5px!important;height:5px!important;z-index:2}
+#reports .v171Summary{padding:10px 12px;border:1px solid rgba(108,213,235,.1);border-radius:15px;background:linear-gradient(145deg,rgba(13,48,66,.58),rgba(7,29,42,.35))}
+#reports .v171GoalLine{padding:7px 8px 8px!important;border-bottom-color:rgba(120,205,224,.08)!important;border-radius:12px}
+#reports .v171GoalLine:active{background:#ffffff06}
+#reports .v171Rail{border:0!important;background:#ffffff0d!important;overflow:hidden}.v17GraphCard,.v17PaceCard,.v17Triptych>div{background:linear-gradient(145deg,rgba(14,46,62,.72),rgba(7,29,42,.66))!important;border:1px solid rgba(109,198,219,.1)}
+.actualLine{stroke:#38c9e5!important}.actualArea{fill:#38c9e5!important}.idealLine{stroke:#91a9b4!important}
+.livingScene:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(112deg,transparent 12%,rgba(170,242,255,.045) 30%,transparent 47%);animation:v1812Ray 10s ease-in-out infinite alternate}
+.livingShark{filter:drop-shadow(0 14px 18px rgba(0,0,0,.26));will-change:transform}
+.livingDecor img,.livingOldDecor img{filter:drop-shadow(0 7px 9px rgba(0,0,0,.18))}
+@keyframes v1812Ray{from{transform:translateX(-4%);opacity:.55}to{transform:translateX(5%);opacity:1}}
+#v1812Toast{position:fixed;z-index:10000;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,12px) scale(.96);opacity:0;pointer-events:none;padding:9px 13px;border-radius:99px;background:rgba(7,31,43,.92);border:1px solid #ffffff1d;backdrop-filter:blur(18px);font-size:11px;font-weight:800;transition:.22s ease;white-space:nowrap}
+#v1812Toast.show{opacity:1;transform:translate(-50%,0) scale(1)}#v1812Toast.reward{color:#7ce8ba;border-color:#45d6a455}#v1812Toast.future{color:#b8c5cc}
+.v1812RuleHint{display:block;margin-top:5px;color:var(--muted);font-size:9px;line-height:1.25;font-weight:500}
+@media(prefers-reduced-motion:reduce){.livingScene:after,.v1811Check.checked{animation:none!important}}
