@@ -16,3 +16,5 @@
 .v1811Stepper{height:36px;display:flex;align-items:center;gap:3px;background:#ffffff07;border-radius:12px;padding:2px}.v1811Stepper button{width:31px;height:31px;border:0;border-radius:10px;background:#ffffff08;font-size:17px}.v1811Stepper button:last-child{background:#0a84ff;color:white}.v1811Stepper strong{min-width:27px;text-align:center;font-size:11px}
 .v1811Empty{margin-top:8px;padding:24px 18px!important}
 @media(max-width:380px){.v1811Task{grid-template-columns:24px minmax(0,1fr) auto;gap:6px;padding-inline:6px}.v1811Mark{width:23px;height:23px}.v1811Text h4{font-size:13px}.v1811Stepper strong{display:none}.v1811Measure{min-width:48px;padding:0 6px}}
+
+.v1811Check:disabled{opacity:.3;filter:grayscale(1)}
