@@ -9,7 +9,7 @@ const def=id=>defs().find(d=>d.id===id);
 const placedCount=id=>data.placed.filter(p=>p.decor===id).length;
 const available=id=>Math.max(0,(data.inventory?.[id]||0)-placedCount(id));
 const vis=d=>d.img?'<img src="'+d.img+'" alt="'+d.name+'">':'<span>'+(d.emoji||'🪸')+'</span>';
-let mode='view',selected=null,drag=null,ghost=null,undo=null;
+let mode='view',selected=null,drag=null,ghost=null,undo=null,suppressInventoryClick=false;
 
 function repairInventory(){
  data.inventory||={}; data.placed||=[];
@@ -21,10 +21,12 @@ function annotate(){
  const old=data.placed.filter(p=>!extras().some(x=>x.id===p.decor)&&!BAD.has(p.decor));
  [...scene.querySelectorAll('.livingOldDecor')].forEach((el,i)=>{if(old[i])el.dataset.v1810Placed=old[i].id});
  scene.querySelectorAll('.livingDecor[data-remove-extra]').forEach(el=>el.dataset.v1810Placed=el.dataset.removeExtra);
- scene.querySelectorAll('[data-v1810-placed]').forEach(el=>el.classList.toggle('v1810Selected',el.dataset.v1810Placed===selected));
+ scene.querySelectorAll('[data-v1810-placed]').forEach(el=>{el.classList.toggle('v1810Selected',el.dataset.v1810Placed===selected);const p=data.placed.find(x=>String(x.id)===String(el.dataset.v1810Placed));el.style.setProperty('--v1810-scale',p?.size==='s'?'.72':p?.size==='l'?'1.3':'1')});
 }
 function controls(){
  const c=document.querySelector('.livingControls');if(!c)return;
+ if(mode==='edit'&&c.querySelector('#v1810Done'))return;
+ if(mode!=='edit'&&c.querySelector('#v1810Buy'))return;
  if(mode==='edit')c.innerHTML='<button id="v1810Done" class="v1810Done">✓ Terminer</button>';
  else c.innerHTML='<button id="v1810Buy">🛍 Acheter</button><button id="v1810Edit">✦ Modifier</button><button id="livingSharks">🦈 Requins</button>';
 }
@@ -86,7 +88,7 @@ function move(e){
 function end(e){
  if(!drag||e.pointerId!==drag.id)return;
  if(drag.kind==='placed'){drag.el.classList.remove('dragging');if(drag.moved)save();else{selected=drag.p.id;renderTools()}}
- else{const scene=document.getElementById('livingScene'),r=scene?.getBoundingClientRect();if(r&&e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom){const pt=sceneXY(e,scene);place(drag.decor,pt.x,pt.y)}else if(!drag.moved)place(drag.decor)}
+ else{const scene=document.getElementById('livingScene'),r=scene?.getBoundingClientRect();suppressInventoryClick=drag.moved;if(r&&e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom){const pt=sceneXY(e,scene);place(drag.decor,pt.x,pt.y)}else if(!drag.moved)place(drag.decor)}
  ghost?.remove();ghost=null;drag=null;
 }
 document.addEventListener('click',e=>{
@@ -95,7 +97,7 @@ document.addEventListener('click',e=>{
  if(e.target.closest('#v1810Edit')){e.preventDefault();editor();return}
  if(e.target.closest('#v1810Done')){e.preventDefault();finish();return}
  const b=e.target.closest('[data-v1810-buy]');if(b){e.preventDefault();const d=def(b.dataset.v1810Buy);if(!d)return;if(data.teeth<d.cost)return alert('Pas assez de dents.');data.teeth-=d.cost;data.inventory[d.id]=(data.inventory[d.id]||0)+1;save();render();setTimeout(buy,0);return}
- const inv=e.target.closest('[data-v1810-inv]');if(inv&&mode==='edit'&&!drag){e.preventDefault();place(inv.dataset.v1810Inv);return}
+ const inv=e.target.closest('[data-v1810-inv]');if(inv&&mode==='edit'&&!drag){e.preventDefault();if(suppressInventoryClick){suppressInventoryClick=false;return}place(inv.dataset.v1810Inv);return}
  const size=e.target.closest('[data-v1810-size]');if(size){const p=data.placed.find(x=>String(x.id)===String(selected));if(p){p.size=size.dataset.v1810Size;save();annotate();renderTools()}return}
  if(e.target.closest('[data-v1810-remove]')){removeSelected();return}
  if(e.target.closest('[data-v1810-undo]')&&undo){data.placed.push(undo.p);selected=undo.p.id;undo=null;save();render();setTimeout(editor,0)}
