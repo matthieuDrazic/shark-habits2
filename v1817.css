@@ -1,0 +1,32 @@
+/* V18.17 — report dashboard and daily accuracy */
+.v1817DailyNote{display:block;margin:-9px 7px 14px;color:#7ea7b7;font-size:11px}
+.v1817Intro{margin:6px 0 14px}
+.v1817Intro h2{font-size:22px;margin:0 0 12px;color:#e7f7fb}
+.v1817Periods{display:flex;background:#0a2c3c;border:1px solid #275061;border-radius:13px;padding:4px;gap:4px}
+.v1817Periods button{flex:1;border:0;background:transparent;color:#9abac7;border-radius:10px;padding:9px 3px;font-size:13px}
+.v1817Periods button.active{background:#12627c;color:#e9fbfc;font-weight:700}
+.v1817Kpis{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.v1817Kpis>div{background:#0b3041;border:1px solid #235064;border-radius:15px;padding:14px 11px;min-width:0}
+.v1817Kpis small,.v1817Kpis span{display:block;color:#95b9c6;font-size:11px}
+.v1817Kpis strong{display:block;font-size:26px;color:#5cdbd6;margin:6px 0}
+.v1817ChartCard{background:#0b3041;border:1px solid #235064;border-radius:16px;padding:13px;margin-bottom:14px;color:#e3f2f6}
+.v1817Spark{width:100%;height:96px;display:block;margin-top:6px}
+.v1817Filters{display:flex;gap:7px;overflow-x:auto;padding:2px 0 13px;scrollbar-width:none}
+.v1817Filters button{white-space:nowrap;border:1px solid #2d5769;border-radius:20px;padding:8px 12px;background:#0b2b3b;color:#9ebfcb;font-size:12px}
+.v1817Filters button.active{background:#12546a;border-color:#3dcbd3;color:#dcf9fb}
+.v1817GoalList{border:1px solid #244e5f;border-radius:17px;overflow:hidden;background:#0b2a3a}
+.v1817Goal{padding:12px 13px;border-bottom:1px solid #254a5b}
+.v1817Goal:last-child{border-bottom:0}
+.v1817Open{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;border:0;background:transparent;padding:0;color:#edf9fc}
+.v1817Open>span:first-child{min-width:0;flex:1}
+.v1817Open strong{display:block;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.v1817Open small{display:block;color:#8dafbf;font-size:11px;margin-top:5px}
+.v1817Value{font-size:13px;color:#b8e4e9;text-align:right;max-width:45%}
+.v1817Rail{height:5px;background:#214657;border-radius:9px;overflow:hidden;margin-top:12px}
+.v1817Rail i{display:block;height:100%;background:#45cdd0;border-radius:9px}
+.v1817GoalBottom{display:flex;justify-content:space-between;align-items:center;color:#7dbcc8;font-size:11px;margin-top:5px}
+.v1817GoalBottom button{background:transparent;border:0;color:#91bfce;font-size:18px;padding:4px 8px;min-width:40px;min-height:32px}
+.v1817Archive{margin-top:20px;border:1px solid #315567;border-radius:13px;padding:12px;color:#a6c8d3}
+.v1817Archive>div{display:flex;justify-content:space-between;padding:8px 0}
+.v1817Archive button{border:0;background:transparent;color:#b3e1e6}
+.v1817Empty{padding:20px;color:#9bbbc8;text-align:center}
