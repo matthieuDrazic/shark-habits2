@@ -49,9 +49,9 @@ function filterToday(){
   else{const count=s.querySelector('.v1816Head b');if(count)count.textContent=rows.length}
  });
  const gs=data.goals.filter(g=>dueToday(g,selectedDate)),completed=gs.filter(g=>achievedToday(g,selectedDate)).length;
- const percent=gs.length?Math.round(completed/gs.length*100):100;
+ const percent=gs.length?Math.round(completed/gs.length*100):0;
  const score=document.getElementById('dayScore'),bar=document.getElementById('dayBar');
- if(score)score.textContent=percent+' %';if(bar)bar.style.width=percent+'%';
+ if(score)score.textContent=gs.length?percent+' %':'—';if(bar)bar.style.width=percent+'%';
  const summary=root.querySelector('.v1816Summary');
  if(summary)summary.innerHTML='<span><strong>'+completed+'/'+gs.length+'</strong> tâches du jour</span><span><strong>'+percent+' %</strong> réalisées</span>';
  const caption=document.getElementById('v1817DailyNote')||document.createElement('small');
