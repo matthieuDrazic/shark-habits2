@@ -1,0 +1,33 @@
+/* V18.16 compact type-grouped Today */
+#todayGroups{padding-bottom:80px}
+.v1816Summary{display:flex;gap:18px;align-items:center;padding:5px 7px 15px;color:#91b9c8;font-size:12px}
+.v1816Summary strong{color:#e7f7fc;font-size:15px}
+.v1816Section{margin:0 0 14px}
+.v1816Head{width:100%;display:flex;justify-content:space-between;align-items:center;min-height:43px;padding:5px 9px;background:transparent;border:0;color:#e0f1f6;font-size:17px;font-weight:700;text-align:left}
+.v1816Head b{display:inline-flex;align-items:center;justify-content:center;min-width:23px;height:23px;padding:0 5px;border-radius:30px;background:#153547;color:#8fb4c5;font-size:12px;margin-left:7px}
+.v1816Icon{display:inline-flex;width:24px;color:#42c6d7;font-size:17px}
+.v1816Chevron{color:#88b4c4;font-weight:400}
+.v1816Rows{overflow:hidden;border:1px solid #204557;border-radius:18px;background:#092433}
+.v1816Rows[hidden],.v1816PausedRows[hidden]{display:none!important}
+.v1816Rows .v1811Task{min-height:70px!important;padding:11px 35px 11px 12px!important;margin:0!important;border:0!important;border-bottom:1px solid #204355!important;border-radius:0!important;gap:9px!important}
+.v1816Rows .v1811Task:last-child{border-bottom:0!important}
+.v1816Rows .v1811Mark{width:35px!important;height:35px!important;min-width:35px!important;display:flex;align-items:center;justify-content:center;font-size:17px!important}
+.v1816Rows .v1811Text{min-width:0!important;flex:1}
+.v1816Rows .v1811Text h4{font-size:15px!important;line-height:1.25!important;margin:0 0 3px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v1816Rows .v1811Text small{font-size:12px!important;line-height:1.3!important;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#8caebd!important}
+.v1816Rows .v1811Text i{margin-top:7px!important;height:4px!important}
+.v1816Rows .v1816NoBar .v1811Text i{display:none!important}
+.v1816Rows .v1811Action{flex-shrink:0}
+.v1816Rows .v1811Stepper{gap:4px!important}
+.v1816Rows .v1811Stepper button{min-width:36px!important;width:36px!important;height:40px!important;padding:0!important;font-size:22px!important}
+.v1816Rows .v1811Stepper strong{min-width:18px!important;font-size:14px!important}
+.v1816Rows .v1811Measure{padding:8px 10px!important;min-height:39px!important;font-size:13px!important}
+.v1816Rows .v1811Check{width:42px!important;height:42px!important;min-width:42px!important}
+.v1816Rows .v1815Actions{top:5px!important;right:3px!important}
+.v1816Rows .v1815Actions button{min-width:29px!important;min-height:34px!important;font-size:15px!important}
+.v1816Pause{margin-top:10px}
+.v1816PausedRows{border:1px solid #204557;border-radius:16px;overflow:hidden;background:#092433}
+.v1816PausedRows>div{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;min-height:49px;border-bottom:1px solid #204355;color:#9ab9c6;font-size:13px}
+.v1816PausedRows>div:last-child{border-bottom:0}
+.v1816PausedRows button{border:1px solid #326e7d;background:#103848;color:#9fe3e6;border-radius:10px;padding:8px 10px;font-size:12px}
+.v1816Empty{padding:20px;text-align:center;color:#90b6c5}
