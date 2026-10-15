@@ -24,7 +24,7 @@ function dueToday(g,d){
  if(g.type==='deadline')return !finished||d===finished;
  if(g.type==='cumulative')return g.repeat==='day'||(g.scheduleMode==='days'&&(g.scheduleDays||[]).includes(new Date(d+'T12:00').getDay()));
  if(g.scheduleMode==='timesweek')return false;
- if(g.type==='habit')return g.scheduleMode!=='period'||g.repeat==='day';
+ if(g.type==='habit')return g.repeat==='day'||g.scheduleMode==='days';
  if(g.type==='metric')return !g.deadline&&g.repeat==='day';
  return false;
 }
