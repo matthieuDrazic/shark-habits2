@@ -1,0 +1,8 @@
+/* V18.15 flexible actions */
+.v1811Task{position:relative;padding-right:38px}
+.v1815Actions{position:absolute;top:6px;right:5px;z-index:2}
+.v1815Actions button{border:0;background:transparent;color:#79b8c8;font-size:17px;min-width:30px;min-height:34px}
+.v1815Paused{margin:14px 0;padding:14px;border:1px solid #33586a;border-radius:16px;background:rgba(16,53,73,.6)}
+.v1815Paused>strong{display:block;margin-bottom:10px;color:#9bbfce}
+.v1815Paused>div{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0}
+.v1815Paused button{border:1px solid #338d9c;border-radius:10px;padding:8px 12px;color:#b5eeec;background:#123c4c}
