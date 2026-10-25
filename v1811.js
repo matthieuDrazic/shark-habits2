@@ -60,7 +60,7 @@ function toggleBinary(g){
  const was=completed(g),key=rewardKey(g,selectedDate);
  if(was){
    data.entries=data.entries.filter(e=>!(e.goal===g.id&&e.date===selectedDate));
-   if(data.rewardLog[key]){delete data.rewardLog[key];data.teeth=Math.max(0,data.teeth-3)}
+   if(data.rewardLog[key]){delete data.rewardLog[key];data.teeth=Math.max(0,data.teeth-(window.__v1819?.binaryAward?.(g)||3));if(data.economy1818?.daily)delete data.economy1818.daily[key]}
  }else{
    data.entries.push({id:uid(),goal:g.id,value:1,date:selectedDate});
    reward(g,selectedDate);
