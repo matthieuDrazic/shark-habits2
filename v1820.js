@@ -43,7 +43,7 @@ function seed(){
    found.set(key(g,e.date),{g,d:e.date});
   }
  }
- for(const [k,{g,d}] of found)if(!eco.periods[k])eco.periods[k]={baseline:earned(g,d),paid:0};
+ for(const [k,{g,d}] of found){if(!eco.periods[k])eco.periods[k]={baseline:earned(g,d),paid:0};if(g.type==='cumulative'){data.rewardLedger||={};data.rewardLedger[k]=window.__v1815?.earned?.(g,d)||0}}
  eco.seeded=true;
  save();
 }
@@ -56,6 +56,7 @@ function reconcile(g,d,notify=true){
  if(!existing)eco.periods[k]=row;
  const target=Math.max(0,earned(g,d)-n(row.baseline));
  const delta=target-n(row.paid);
+ if(g.type==='cumulative'){data.rewardLedger||={};data.rewardLedger[k]=window.__v1815?.earned?.(g,d)||0}
  if(!delta)return 0;
  row.paid=target;
  data.teeth=Math.max(0,n(data.teeth)+delta);
