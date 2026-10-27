@@ -1,5 +1,5 @@
-const CACHE="sharkhabits-v18.19-18190";
-const CORE=["./","./index.html","./style.css","./reports.css","./v18.css","./v187.css","./v188.css","./v189.css","./v1810.css","./v1811.css","./v1812.css","./app.js","./v167.js","./v169.js","./reports-runtime.js","./v18.js","./v187.js","./v188.js","./v189.js","./v1810.js","./v1811.js","./v1812.js","./v1813.js","./v1815.js","./v1815.css","./v1816.js","./v1816.css","./v1817.js","./v1817.css","./v1818.js","./v1819.js","./manifest.json","./icon.svg"];
+const CACHE="sharkhabits-v18.20-18200";
+const CORE=["./","./index.html","./style.css","./reports.css","./v18.css","./v187.css","./v188.css","./v189.css","./v1810.css","./v1811.css","./v1812.css","./app.js","./v167.js","./v169.js","./reports-runtime.js","./v18.js","./v187.js","./v188.js","./v189.js","./v1810.js","./v1811.js","./v1812.js","./v1813.js","./v1815.js","./v1815.css","./v1816.js","./v1816.css","./v1817.js","./v1817.css","./v1818.js","./v1819.js","./v1820.js","./manifest.json","./icon.svg"];
 self.addEventListener("install",event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}).then(()=>self.skipWaiting()))});
 self.addEventListener("activate",event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
 self.addEventListener("fetch",event=>{
